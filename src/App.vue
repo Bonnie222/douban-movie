@@ -10,11 +10,6 @@
 import Footertab from './components/tab/footer-tab'
 export default {
   name: 'app',
-  data(){
-    return{
-      
-    }
-  },
   components:{ Footertab }
 }
 </script>
@@ -26,4 +21,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+
 </style>

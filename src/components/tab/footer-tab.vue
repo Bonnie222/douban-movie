@@ -34,13 +34,14 @@
 </script>
 <style scoped>
 	 #footer{
+	 	background-color: #ffffff;
 		position:fixed;
 		bottom:0;
 		width:100%;
 		height: 60px;
 		border-top:1px solid #05AF10;
 		display: flex;  
-		font-size: 20px;
+		font-size: 16px;
 	}
 	.tab-item{
 		flex:1;
@@ -49,10 +50,11 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		line-height: 24px;
+		line-height: 18px;
 	}
 	.tab-icon {
-		font-size: 24px;
+		font-size: 18px;
+		font-weight: bold;
 	}
 	.tab-icon .iconfont{
 		font-size: inherit;
@@ -60,7 +62,7 @@
 	}
 	.tab-link{
 		font-size:inherit;
-		font-size: 16px;
+		font-size: 12px;
 	}
 	/*.router-link-active{
 		color:#05AF10;
