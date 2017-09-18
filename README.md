@@ -1,6 +1,7 @@
 # douban-movie
 
 > A Vue.js project
+> 本项目主要是想学习如何调用开放的接口api,如何传入实时的数据。
 
 ## Build Setup
 
