@@ -32,8 +32,8 @@
 						  <mt-tab-container-item id="1">
 						    	 <Movie-Comment :movieComments="movieDetail.popular_comments" :commentsCount="movieDetail.comments_count"></Movie-Comment> 
 						  </mt-tab-container-item>
-						  <mt-tab-container-item id="2">22
-						    	 <!-- <MovieList-show :listMovie ="comingMovies"></MovieList-show>  -->
+						  <mt-tab-container-item id="2">
+						    	<Movie-Review :movieReviews="movieDetail.popular_reviews" :reviewsCount="movieDetail.reviews_count"></Movie-Review>
 						  </mt-tab-container-item>
 						</mt-tab-container>
 					</div>
@@ -50,6 +50,7 @@
 
 	import MovieInfo from './movie-info';
 	import MovieComment from './movie-comment';
+	import MovieReview from './movie-review';
 
 	export default{
 		name:'movieDetail', // 创建name属性用于keep-alive组件定位本组件防止缓存
@@ -62,6 +63,7 @@
 		components:{
 			"Movie-Info":MovieInfo,
 			"Movie-Comment":MovieComment,
+			"Movie-Review":MovieReview
 		},
 		computed: {
 	      ...mapGetters([

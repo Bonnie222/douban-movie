@@ -1,6 +1,6 @@
 <template>
 	<div id="movie-hot">
-		<div class="go-search">
+		<div class="go-search" @click="goSearch">
 			<div class="logo">
 				<img src="./../../assets/douban-logo.png">
 			</div>
@@ -71,15 +71,12 @@
 			getMovieList(){
 				var vm = this;
 				vm.listLoading = true;
-				console.log(api.in_theaters);
 				Vue.http.get(api.in_theaters,{params:{"count":vm.listQuery.pagesize,"start":vm.listQuery.currPage-1}}).then(function(res){
 						var data = res.body;
-						console.log("daa ",data);
-
+						
 						if(data.subjects){
 							vm.hotMovies= data.subjects;
 							console.log("列表数据",vm.hotMovies);
-							//console.log("列表数据",vm.listMovie.row);
 							vm.listQuery.currPage = data.start + 1;
 							vm.listQuery.pagesize = data.count;
 							vm.MovieTotal = data.total;
@@ -101,15 +98,12 @@
 			getcomingMovieList(){
 				var vm = this;
 				vm.listLoading = true;
-				console.log(api.coming_soon);
 				Vue.http.get(api.coming_soon,{params:{"count":vm.listQuery.pagesize,"start":vm.listQuery.currPage-1}}).then(function(res){
 						var data = res.body;
-						console.log("daa ",data);
 
 						if(data.subjects){
 							vm.comingMovies= data.subjects;
 							console.log("即将上映列表数据",vm.comingMovies);
-							//console.log("列表数据",vm.listMovie.row);
 							vm.listQuery.currPage = data.start + 1;
 							vm.listQuery.pagesize = data.count;
 							vm.MovieTotal = data.total;
@@ -126,6 +120,13 @@
 				},function(res){
 					vm.listLoading = false;
 				},true)
+			},
+
+			//转入搜索页面
+			goSearch(){
+				this.$router.push({
+					path:'/search'
+				});
 			},
 
 			//转入电影详情

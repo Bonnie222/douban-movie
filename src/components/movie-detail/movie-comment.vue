@@ -8,7 +8,7 @@
 				</div>
 				<div class="content">
 					<h1 class="name">{{ comment.author.name }}</h1>
-					<!-- <Star></Star> -->
+					<Star :size="24" :score="comment.rating.value"></Star>
 					<p class="text">{{ comment.content }}</p>
 					<span class="createdate">{{ comment.created_at }}</span>
 					<div class="useful-count">
@@ -18,15 +18,19 @@
 			</li> 
 		</ul>
 		<div class="allcomment">
-			<span>全部短评{{ commentsCount }}</span>
+			<span>全部短评{{ commentsCount }}条</span>
 		</div>
 	</div>
 </template>
 <script>
+	import Star from './../base/star/star'
 	export default{
 		props:{
 			movieComments:{ type:Array, default:[] },
 			commentsCount:{ type:Number, default:0 }
+		},
+		components:{
+			Star
 		}
 	}
 </script>
@@ -63,9 +67,9 @@
 		line-height: 25px;
 		margin-right: 5px;
 	}
-	/*.comment-item .content .Star{
+	.comment-item .content .Star{
 		display: inline-block;
-	}*/
+	}
 	.comment-item .content .text{
 		line-height: 20px;
 	}
