@@ -31,7 +31,7 @@ module.exports = {
     staticPath:'/static/',
     proxyTable: {
         '/v2': {
-            target: 'http://api.douban.com',
+            target: 'https://api.douban.com',
             changeOrigin: true,
             pathRewrite: {
                 '^/v2': '/v2'
