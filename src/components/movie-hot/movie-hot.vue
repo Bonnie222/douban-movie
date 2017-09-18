@@ -71,7 +71,7 @@
 			getMovieList(){
 				var vm = this;
 				vm.listLoading = true;
-				Vue.http.get(api.in_theaters,{params:{"count":vm.listQuery.pagesize,"start":vm.listQuery.currPage-1}}).then(function(res){
+				Vue.http.jsonp(api.in_theaters,{params:{"count":vm.listQuery.pagesize,"start":vm.listQuery.currPage-1}}).then(function(res){
 						var data = res.body;
 						
 						if(data.subjects){
@@ -98,7 +98,7 @@
 			getcomingMovieList(){
 				var vm = this;
 				vm.listLoading = true;
-				Vue.http.get(api.coming_soon,{params:{"count":vm.listQuery.pagesize,"start":vm.listQuery.currPage-1}}).then(function(res){
+				Vue.http.jsonp(api.coming_soon,{params:{"count":vm.listQuery.pagesize,"start":vm.listQuery.currPage-1}}).then(function(res){
 						var data = res.body;
 
 						if(data.subjects){
