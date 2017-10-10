@@ -71,14 +71,21 @@
 			getMovieList(){
 				var vm = this;
 				vm.listLoading = true;
-				Vue.http.jsonp(api.in_theaters,{params:{"count":vm.listQuery.pagesize,"start":vm.listQuery.currPage-1}}).then(function(res){
+				//请求参数
+				let par = {
+					"count":vm.listQuery.pagesize,
+					"start":vm.listQuery.currPage-1
+				};
+
+				//jsonp请求方式
+				Vue.http.jsonp('https://api.douban.com/v2/movie/in_theaters',{params:par}).then(function(res){
 						var data = res.body;
 						
 						if(data.subjects){
 							vm.hotMovies= data.subjects;
 							console.log("列表数据",vm.hotMovies);
-							vm.listQuery.currPage = data.start + 1;
-							vm.listQuery.pagesize = data.count;
+							vm.listQuery.currPage = data.start + 1;  //页数开始
+							vm.listQuery.pagesize = data.count;    //每页多少条
 							vm.MovieTotal = data.total;
 
 							vm.listLoading = false;
@@ -98,14 +105,14 @@
 			getcomingMovieList(){
 				var vm = this;
 				vm.listLoading = true;
-				Vue.http.jsonp(api.coming_soon,{params:{"count":vm.listQuery.pagesize,"start":vm.listQuery.currPage-1}}).then(function(res){
+				Vue.http.jsonp('https://api.douban.com/v2/movie/coming_soon',{params:par}).then(function(res){
 						var data = res.body;
 
 						if(data.subjects){
 							vm.comingMovies= data.subjects;
 							console.log("即将上映列表数据",vm.comingMovies);
-							vm.listQuery.currPage = data.start + 1;
-							vm.listQuery.pagesize = data.count;
+							vm.listQuery.currPage = data.start + 1;   //页数开始
+							vm.listQuery.pagesize = data.count;    //每页多少条
 							vm.MovieTotal = data.total;
 
 							vm.listLoading = false;
