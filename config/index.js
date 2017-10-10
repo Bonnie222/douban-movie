@@ -6,9 +6,9 @@ module.exports = {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: '',    //生产环境assetsPublicPath: '/'
+    assetsSubDirectory: 'static',    //生产环境assetsPublicPath: '/'
     assetsPublicPath: './',          //生产环境 staticPath:''
-    staticPath:'./',
+    // staticPath:'./',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -28,7 +28,7 @@ module.exports = {
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    staticPath:'/static/',
+    // staticPath:'/static/',
     proxyTable: {
        //  '/v2': {
        //      target: 'https://api.douban.com',
