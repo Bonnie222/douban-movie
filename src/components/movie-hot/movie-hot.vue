@@ -10,7 +10,7 @@
 			</div>
 		</div>
 
-		<mt-navbar v-model="selected">
+		<mt-navbar v-model="selected" :currentIndex="currentIndex">
 		  <mt-tab-item id="1">正在热映</mt-tab-item>
 		  <mt-tab-item id="2">即将上映</mt-tab-item>
 		</mt-navbar>
@@ -25,17 +25,20 @@
 		    </div>
 		  </mt-tab-container-item>
 		  <mt-tab-container-item id="2">
-		    <div class="scroll" :data="comingMovies" :needDate="needDate">
+		    <div class="scroll" :data="comingMovies">
 		    	<div class="list-inner">
-		    	 	<MovieList-show :listMovie ="comingMovies"></MovieList-show> 
+		    	 	<MovieList-show :listMovie ="comingMovies" @select="selectMovie"></MovieList-show> 
 		    	</div>
 		    </div>
 		  </mt-tab-container-item>
 		</mt-tab-container>
+
+		<LoadMore :fullScreen="fullScreen" v-show="currentIndex===1&&!comingMovies.length||currentIndex===0&&!hotMovies.length"></LoadMore>
 	</div>
 </template>
 <script>
 	import MovieListShow from './movie-list'
+	import LoadMore from './../base/loadmore/loadmore'
 
 	import { api } from './../../global/api';
 	import Vue from 'vue';
@@ -44,14 +47,16 @@
 	export default{
 		data(){
 			return{
+				currentIndex:0,
 				selected:"1",
 				hotMovies:[],     //热映电影
 				comingMovies:[],  //即将上映电影
 
+				fullScreen: true, // 加载动画全屏
 				listLoading:true,
 				MovieTotal:null,
 				listQuery:{
-					pagesize:10,
+					pagesize:0,
 					currPage:1,
 				},
 
@@ -59,7 +64,8 @@
 			}
 		},
 		components:{
-			"MovieList-show": MovieListShow
+			"MovieList-show": MovieListShow,
+			"LoadMore":LoadMore
 		},
 		mounted(){
 			var vm = this;
@@ -99,12 +105,21 @@
 						}
 				},function(res){
 					vm.listLoading = false;
-				},true)
+				},true);
+				//jsonp请求方法end
+				return false;
 			},
 			//获取即将上映列表数据
 			getcomingMovieList(){
 				var vm = this;
 				vm.listLoading = true;
+				//请求参数
+				let par = {
+					"count":vm.listQuery.pagesize,
+					"start":vm.listQuery.currPage-1
+				};
+
+				//jsonp请求方式
 				Vue.http.jsonp('https://api.douban.com/v2/movie/coming_soon',{params:par}).then(function(res){
 						var data = res.body;
 
@@ -126,7 +141,9 @@
 						}
 				},function(res){
 					vm.listLoading = false;
-				},true)
+				},true);
+				//jsonp请求方法end
+				return false;
 			},
 
 			//转入搜索页面
@@ -154,7 +171,7 @@
 	#movie-hot{
 		background-color: #ffffff;
 		height: 100%;
-		margin-bottom: 60px;
+		margin-bottom: 70px;
 	}
 	.go-search{
 		height: 50px;

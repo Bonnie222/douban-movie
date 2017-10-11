@@ -1,18 +1,58 @@
 <template>
 	<div class="search-box">
 		<i class="iconfont icon-sousuo"></i>
-		<input type="text" class="box" :placeholder="placeholder">
+		<input type="text" class="box" :placeholder="placeholder" v-model="query" ref="query">
 		<span class="cansel" @click="back">取消</span>
 	</div>
 </template>
 <script>
 	export default{
 		props:{
-			placeholder:{ type:String, default:'搜索电影/影人' }
+			placeholder:{ type:String, default:'搜索电影/影人' },
+			tagSearch:{ type:Boolean,default:false }
+		},
+		data(){
+			return{
+				query:''
+			}
 		},
 		methods:{
+			//返回上一级
 			back(){
 				this.$router.back();
+			},
+
+			//搜索内容
+			setQuery(query){
+				this.query = query;
+			},
+
+			//清空
+			clear(){
+				this.query = '';
+			},
+
+			//失去焦点
+			blur(){
+				this.$refs.query.blur();
+			},
+			//聚集焦点
+			focus(){
+				this.$refs.query.focus();
+			}
+		},
+		wacth:{
+			query(newQuery){   //节流操作
+				if(!this.tagSearch){
+					if(this.timer){
+						clearTimeout(this.timer);
+					}
+					this.timer = setTimeout(()=>{
+						this.$emit('query',newQuery);
+					},200);
+				}else{   //标签搜索不需要节流
+					this.$emit('query',newQuery);
+				}
 			}
 		}
 	}

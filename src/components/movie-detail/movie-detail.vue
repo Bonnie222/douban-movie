@@ -90,7 +90,7 @@
 				
 				// const apikey = '?apikey=0b2bdeda43b5688921839c8ecb20399b&city=%E5%8C%97%E4%BA%AC&client=something&udid=dddddddddddddddddddddd';
 				const apikey = "?apikey=" +commonParams.apikey;
-				Vue.http.jsonp(api.subject_id+vm.movie.id + apikey ).then(function(res){
+				Vue.http.jsonp('https://api.douban.com/v2/movie/subject/'+vm.movie.id + apikey ).then(function(res){
 						var data = res.body;
 						console.log("电影详情",data);
 						
@@ -110,7 +110,9 @@
 						}
 				},function(res){
 					vm.listLoading = false;
-				},true)
+				},true);
+				//jsonp请求方法end
+				return false;
 			}
 		}
 	}

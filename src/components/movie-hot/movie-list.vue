@@ -53,6 +53,7 @@
 		},
 		created() {
 	      this.indexMap = {};
+	      this.listHeight = [];
 	    },
 		methods:{
 			selectItem(movie) {
@@ -78,8 +79,34 @@
 		          }
 		        }
 		        this.indexMap = map;
-		     }
+		     },
 
+		     //计算每个区间的高度
+		     calculateHeight(){
+		     	this.listHeight = [];
+		     	const list = this.$ref.group;
+		     	let height = 0;
+		     	let map = Object.values(this.indexMap);
+		     	this.listHeight.push(height);
+		     	map.forEach(function(item,index){
+		     		item.forEach(function(item){
+		     			height += list[item].clientHeight;
+		     		});
+		     		this.listHeight.push(height);
+		     	});
+		     	this.$emit('getHeight',this.listHeight);
+		     	this.$emit('getMap',Object.keys(this.indexMap));
+		     }
+		},
+		wacth:{
+			movies(){
+				if(this.needDate){
+					setTimeout(function(){
+						this.getMap();
+						this.calculateHeight();
+					},20);
+				}
+			}
 		}
 		
 	}
